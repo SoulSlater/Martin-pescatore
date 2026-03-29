@@ -91,10 +91,10 @@
   background: rgba(0,0,0,0.75);
   backdrop-filter: blur(8px);
   display: flex;
-  align-items: flex-start; /* Always start at top to avoid cutoff */
-  justify-content: center;
+  align-items: center; /* Center vertically */
+  justify-content: center; /* Center horizontally */
   z-index: 1000;
-  padding: 40px 20px; /* Add safety padding */
+  padding: 20px;
   overflow-y: auto;
 }
 .modal-card {
@@ -110,10 +110,10 @@
   overflow-y: auto;
 }
 
-/* Su mobile: padding ridotto */
+/* Su mobile: padding normale */
 @media (max-width: 768px) {
   .modal-overlay {
-    padding: 16px 12px 32px;
+    padding: 20px;
   }
   .modal-card {
     max-height: none;
