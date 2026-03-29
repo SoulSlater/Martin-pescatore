@@ -19,7 +19,6 @@ export default function ProductCard({ item }) {
   return (
     <>
       <motion.article
-        layoutId={`card-${item.id}`}
         className={`product-card glass glass-hover ${!item.available ? 'product-card--unavailable' : ''}`}
         onClick={() => setShowDetails(true)}
         initial={{ opacity: 0, y: 20 }}
@@ -77,12 +76,11 @@ export default function ProductCard({ item }) {
           >
             <motion.div
               className="modal-card glass"
-              layoutId={`card-${item.id}`}
               onClick={e => e.stopPropagation()}
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+              initial={{ opacity: 0, scale: 0.92, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.92, y: 20 }}
+              transition={{ type: 'spring', stiffness: 320, damping: 28 }}
             >
               <button
                 className="modal-close btn btn-ghost btn-icon"
