@@ -127,35 +127,20 @@ export default function MenuPage() {
         </nav>
       </div>
 
-      {/* Grid */}
       <main className="menu-grid-section">
-        <AnimatePresence mode="wait">
-          {filtered.length > 0 ? (
-            <motion.div
-              key={activeCategory + search}
-              className="menu-grid"
-              variants={gridVariants}
-              initial="hidden"
-              animate="show"
-              exit="exit"
-            >
-              {filtered.map(item => (
-                <ProductCard key={item.id} item={item} />
-              ))}
-            </motion.div>
-          ) : (
-            <motion.div
-              key="empty"
-              className="menu-empty"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-            >
-              <UtensilsCrossed size={48} className="menu-empty__icon" />
-              <p className="menu-empty__text">Nessun piatto trovato</p>
-              <p className="menu-empty__hint">Prova a modificare la ricerca o la categoria</p>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {filtered.length > 0 ? (
+          <div className="menu-grid">
+            {filtered.map(item => (
+              <ProductCard key={item.id} item={item} />
+            ))}
+          </div>
+        ) : (
+          <div className="menu-empty">
+            <UtensilsCrossed size={48} className="menu-empty__icon" />
+            <p className="menu-empty__text">Nessun piatto trovato</p>
+            <p className="menu-empty__hint">Prova a modificare la ricerca o la categoria</p>
+          </div>
+        )}
       </main>
 
       {/* Footer */}

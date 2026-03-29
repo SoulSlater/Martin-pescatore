@@ -18,11 +18,9 @@ export default function ProductCard({ item }) {
 
   return (
     <>
-      <motion.article
+      <div
         className={`product-card glass glass-hover ${!item.available ? 'product-card--unavailable' : ''}`}
         onClick={() => setShowDetails(true)}
-        whileHover={{ y: -4 }}
-        transition={{ duration: 0.2 }}
         role="button"
         tabIndex={0}
         aria-label={`Dettagli di ${item.name}`}
@@ -56,84 +54,75 @@ export default function ProductCard({ item }) {
             </div>
           )}
         </div>
-      </motion.article>
+      </div>
 
       {/* Detail Modal */}
-      <AnimatePresence>
-        {showDetails && (
-          <motion.div
-            className="modal-overlay"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setShowDetails(false)}
-            role="dialog"
-            aria-modal="true"
-            aria-label={item.name}
+      {showDetails && (
+        <div
+          className="modal-overlay"
+          onClick={() => setShowDetails(false)}
+          role="dialog"
+          aria-modal="true"
+          aria-label={item.name}
+        >
+          <div
+            className="modal-card glass"
+            onClick={e => e.stopPropagation()}
           >
-            <motion.div
-              className="modal-card glass"
-              onClick={e => e.stopPropagation()}
-              initial={{ opacity: 0, scale: 0.92, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.92, y: 20 }}
-              transition={{ type: 'spring', stiffness: 320, damping: 28 }}
+            <button
+              className="modal-close btn btn-ghost btn-icon"
+              onClick={() => setShowDetails(false)}
+              aria-label="Chiudi"
             >
-              <button
-                className="modal-close btn btn-ghost btn-icon"
-                onClick={() => setShowDetails(false)}
-                aria-label="Chiudi"
-              >
-                <X size={18} />
-              </button>
+              <X size={18} />
+            </button>
 
-              <div className="modal-body">
-                <div className="modal-header-vertical">
-                  <h2 className="modal-title">{item.name}</h2>
-                  <span className="modal-price-large">{formatPrice(item.price)}</span>
-                </div>
-                {item.description && <p className="modal-desc">{item.description}</p>}
-
-                {/* Ingredients */}
-                {item.ingredients && item.ingredients.length > 0 && (
-                  <div className="modal-section">
-                    <h4 className="modal-section-title">
-                      <ChefHat size={14} /> Ingredienti
-                    </h4>
-                    <div className="modal-tags">
-                      {item.ingredients.map(ing => (
-                        <span key={ing} className="badge">{ing}</span>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {/* Allergens */}
-                {item.allergens.length > 0 && (
-                  <div className="modal-section">
-                    <h4 className="modal-section-title allergen-title">
-                      <AlertTriangle size={14} /> Allergeni
-                    </h4>
-                    <div className="modal-tags">
-                      {item.allergens.map(a => (
-                        <span key={a} className="badge badge-danger">
-                          {ALLERGEN_ICONS[a]} {a}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {!item.available && (
-                  <div className="modal-unavailable-banner">
-                    ⚠️ Questo piatto non è disponibile oggi
-                  </div>
-                )}
+            <div className="modal-body">
+              <div className="modal-header-vertical">
+                <h2 className="modal-title">{item.name}</h2>
+                <span className="modal-price-large">{formatPrice(item.price)}</span>
               </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+              {item.description && <p className="modal-desc">{item.description}</p>}
+
+              {/* Ingredients */}
+              {item.ingredients && item.ingredients.length > 0 && (
+                <div className="modal-section">
+                  <h4 className="modal-section-title">
+                    <ChefHat size={14} /> Ingredienti
+                  </h4>
+                  <div className="modal-tags">
+                    {item.ingredients.map(ing => (
+                      <span key={ing} className="badge">{ing}</span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Allergens */}
+              {item.allergens.length > 0 && (
+                <div className="modal-section">
+                  <h4 className="modal-section-title allergen-title">
+                    <AlertTriangle size={14} /> Allergeni
+                  </h4>
+                  <div className="modal-tags">
+                    {item.allergens.map(a => (
+                      <span key={a} className="badge badge-danger">
+                        {ALLERGEN_ICONS[a]} {a}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {!item.available && (
+                <div className="modal-unavailable-banner">
+                  ⚠️ Questo piatto non è disponibile oggi
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
