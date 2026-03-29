@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Search, UtensilsCrossed, ArrowLeft } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { UtensilsCrossed, ArrowLeft } from 'lucide-react';
 import { useMenu } from '../context/MenuContext';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
@@ -25,41 +25,28 @@ export default function MenuPage() {
   }, [CATEGORIES, section]);
 
   const [activeCategory, setActiveCategory] = useState('');
-  const [search, setSearch] = useState('');
 
   // Auto-select first category specific to section instead of "all"
   useEffect(() => {
     if (visibleCategories.length > 0) {
       setActiveCategory(visibleCategories[0].id);
     }
-    setSearch('');
   }, [section, visibleCategories]);
 
   // Scroll to top when category changes
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: 'auto' });
   }, [activeCategory]);
 
   const filtered = useMemo(() => {
-    return items.filter(item => {
-      // Filter by the active category tab
-      const matchCategory = item.category === activeCategory;
-
-      const q = search.toLowerCase();
-      const matchSearch = !q ||
-        item.name.toLowerCase().includes(q) ||
-        (item.description || '').toLowerCase().includes(q) ||
-        (item.ingredients || []).some(i => i.toLowerCase().includes(q));
-      return matchCategory && matchSearch;
-    });
-  }, [items, activeCategory, search]);
+    return items.filter(item => item.category === activeCategory);
+  }, [items, activeCategory]);
 
   const categoryCount = (catId) =>
     items.filter(i => i.category === catId).length;
 
   return (
     <div className="menu-page page-container">
-      {/* Sticky Controls incl Header */}
       <div className="menu-controls">
         <div className="menu-controls-left">
           <button
@@ -84,34 +71,19 @@ export default function MenuPage() {
           </div>
         </div>
 
-        {/* Search */}
-        <div className="menu-search-wrap">
-          <Search size={18} className="menu-search-icon" />
-          <input
-            id="menu-search"
-            className="menu-search"
-            type="search"
-            placeholder="Cerca piatti, ingredienti..."
-            value={search}
-            onChange={e => setSearch(e.target.value)}
-            aria-label="Cerca nel menu"
-          />
-        </div>
-
         {/* Category tabs */}
         <nav className="category-tabs" aria-label="Filtra categoria">
           {visibleCategories.map(cat => (
-            <motion.button
+            <button
               key={cat.id}
               id={`cat-tab-${cat.id}`}
               onClick={() => setActiveCategory(cat.id)}
               className={clsx('category-tab', activeCategory === cat.id && 'category-tab--active')}
-              whileTap={{ scale: 0.95 }}
             >
               <span className="category-tab__emoji">{cat.emoji}</span>
               <span className="category-tab__label">{cat.label}</span>
               <span className="category-tab__count">{categoryCount(cat.id)}</span>
-            </motion.button>
+            </button>
           ))}
         </nav>
       </div>

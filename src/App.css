@@ -1139,7 +1139,6 @@
   .menu-hero { padding: 40px 16px 20px; }
   .menu-controls { padding: 12px 16px; gap: 12px; }
   .menu-controls-left { min-width: 100%; justify-content: space-between; }
-  .menu-search-wrap { max-width: 100%; flex: 1; width: 100%; }
   .menu-grid-section { padding: 20px 16px 60px; }
   
   /* Menu Items list - single column for readibility on phones */
