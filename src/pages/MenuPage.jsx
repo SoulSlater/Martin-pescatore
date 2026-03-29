@@ -6,9 +6,16 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
 import clsx from 'clsx';
 
-const staggerContainer = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.06 } },
+const gridVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: { duration: 0.18 },
+  },
+  exit: {
+    opacity: 0,
+    transition: { duration: 0.12 },
+  },
 };
 
 export default function MenuPage() {
@@ -127,9 +134,10 @@ export default function MenuPage() {
             <motion.div
               key={activeCategory + search}
               className="menu-grid"
-              variants={staggerContainer}
+              variants={gridVariants}
               initial="hidden"
               animate="show"
+              exit="exit"
             >
               {filtered.map(item => (
                 <ProductCard key={item.id} item={item} />

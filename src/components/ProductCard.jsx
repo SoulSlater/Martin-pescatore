@@ -21,11 +21,8 @@ export default function ProductCard({ item }) {
       <motion.article
         className={`product-card glass glass-hover ${!item.available ? 'product-card--unavailable' : ''}`}
         onClick={() => setShowDetails(true)}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.95 }}
-        whileHover={{ y: -6 }}
-        transition={{ duration: 0.3 }}
+        whileHover={{ y: -4 }}
+        transition={{ duration: 0.2 }}
         role="button"
         tabIndex={0}
         aria-label={`Dettagli di ${item.name}`}
