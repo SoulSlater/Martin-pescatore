@@ -246,23 +246,23 @@
 
 /* Mobile Overrides for Logos */
 @media (max-width: 768px) {
-  /* Landing page logo — più compatto */
+  /* Landing page logo — molto più compatto */
   .logo-bubble:not(.logo-bubble--small) {
-    padding: 8px 14px;
-    border-radius: 18px;
-    box-shadow: 0 3px 0 var(--accent-secondary);
+    padding: 6px 10px;
+    border-radius: 14px;
+    box-shadow: 0 2px 0 var(--accent-secondary);
   }
-  .logo-bubble:not(.logo-bubble--small) .logo-text-top { font-size: 7px; }
-  .logo-bubble:not(.logo-bubble--small) .logo-text-main { font-size: 26px; }
-  .logo-bubble:not(.logo-bubble--small) .logo-text-bottom { font-size: 7px; }
-  .logo-bubble:not(.logo-bubble--small) .logo-divider { margin: 3px 0; }
-  .logo-bubble:not(.logo-bubble--small) .logo-dot { width: 7px; height: 7px; margin-top: 5px; }
+  .logo-bubble:not(.logo-bubble--small) .logo-text-top { font-size: 5px; }
+  .logo-bubble:not(.logo-bubble--small) .logo-text-main { font-size: 18px; }
+  .logo-bubble:not(.logo-bubble--small) .logo-text-bottom { font-size: 5px; }
+  .logo-bubble:not(.logo-bubble--small) .logo-divider { margin: 2px 0; }
+  .logo-bubble:not(.logo-bubble--small) .logo-dot { width: 5px; height: 5px; margin-top: 3px; }
   .logo-bubble:not(.logo-bubble--small) .logo-bubble__tail {
-    bottom: -12px;
-    right: 16px;
-    border-left-width: 10px;
-    border-right-width: 10px;
-    border-top-width: 14px;
+    bottom: -10px;
+    right: 12px;
+    border-left-width: 8px;
+    border-right-width: 8px;
+    border-top-width: 11px;
   }
 
   /* Menu header logo — minuscolo */

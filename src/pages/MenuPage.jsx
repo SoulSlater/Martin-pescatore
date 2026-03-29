@@ -18,7 +18,14 @@ export default function MenuPage() {
   const section = searchParams.get('section'); // 'bar' or 'pizzeria'
 
   const visibleCategories = useMemo(() => {
-    return CATEGORIES.filter(cat => cat.section === section || cat.section === 'all');
+    const matching = CATEGORIES.filter(cat => cat.section === section || cat.section === 'all');
+    // Per la pizzeria: prima le categorie specifiche della sezione, poi quelle 'all' (birre, vini)
+    return matching.sort((a, b) => {
+      if (a.section === b.section) return 0;
+      if (a.section === section) return -1;
+      if (b.section === section) return 1;
+      return 0;
+    });
   }, [CATEGORIES, section]);
 
   const [activeCategory, setActiveCategory] = useState('');
