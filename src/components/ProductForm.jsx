@@ -12,7 +12,6 @@ export default function ProductForm({ initialData = null, onClose, onSave }) {
     name: initialData?.name || '',
     price: initialData?.price || '',
     category: initialData?.category || categories[0].id,
-    description: initialData?.description || '',
     ingredients: initialData?.ingredients || [],
     allergens: initialData?.allergens || [],
     image: initialData?.image || '',
@@ -28,7 +27,6 @@ export default function ProductForm({ initialData = null, onClose, onSave }) {
     if (!form.name.trim()) e.name = 'Il nome è obbligatorio';
     if (!form.price || isNaN(form.price) || Number(form.price) <= 0)
       e.price = 'Prezzo non valido';
-    if (!form.description.trim()) e.description = 'La descrizione è obbligatoria';
     setErrors(e);
     return Object.keys(e).length === 0;
   };
@@ -112,18 +110,6 @@ export default function ProductForm({ initialData = null, onClose, onSave }) {
           </div>
         </div>
 
-        {/* Description */}
-        <div className="form-group form-col-2">
-          <label className="form-label" htmlFor="field-desc">Descrizione *</label>
-          <textarea
-            id="field-desc"
-            className={clsx('textarea', errors.description && 'input--error')}
-            placeholder="Descrivi il piatto..."
-            value={form.description}
-            onChange={e => setForm(f => ({ ...f, description: e.target.value }))}
-          />
-          {errors.description && <span className="form-error">{errors.description}</span>}
-        </div>
 
         {/* Image URL */}
         <div className="form-group form-col-2">

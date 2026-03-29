@@ -37,7 +37,13 @@ export default function ProductCard({ item }) {
         <div className="product-card__body">
           <h3 className="product-card__name">{item.name}</h3>
           <div className="product-card__price">{formatPrice(item.price)}</div>
-          {item.description && <p className="product-card__desc">{item.description}</p>}
+          
+          {/* Ingredients preview on grid */}
+          {item.ingredients && item.ingredients.length > 0 && (
+            <p className="product-card__desc">
+              {item.ingredients.join(', ')}
+            </p>
+          )}
 
           {/* Allergens preview */}
           {item.allergens.length > 0 && (
@@ -82,7 +88,6 @@ export default function ProductCard({ item }) {
                 <h2 className="modal-title">{item.name}</h2>
                 <span className="modal-price-large">{formatPrice(item.price)}</span>
               </div>
-              {item.description && <p className="modal-desc">{item.description}</p>}
 
               {/* Ingredients */}
               {item.ingredients && item.ingredients.length > 0 && (
