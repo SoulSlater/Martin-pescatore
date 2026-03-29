@@ -244,6 +244,45 @@
   border-top-width: 15px;
 }
 
+/* Mobile Overrides for Logos */
+@media (max-width: 768px) {
+  .logo-bubble {
+    padding: 10px 18px;
+    border-radius: 20px;
+    box-shadow: 0 4px 0 var(--accent-secondary);
+  }
+  .logo-bubble .logo-text-top { font-size: 8px; }
+  .logo-bubble .logo-text-main { font-size: 32px; }
+  .logo-bubble .logo-text-bottom { font-size: 9px; }
+  .logo-bubble .logo-divider { margin: 4px 0; }
+  .logo-bubble .logo-dot { width: 8px; height: 8px; margin-top: 6px; }
+  .logo-bubble .logo-bubble__tail {
+    bottom: -15px;
+    right: 20px;
+    border-left-width: 12px;
+    border-right-width: 12px;
+    border-top-width: 18px;
+  }
+
+  .logo-bubble--small {
+    padding: 4px 10px;
+    border-radius: 12px;
+    box-shadow: 0 2px 0 var(--accent-secondary);
+  }
+  .logo-bubble--small .logo-text-top { font-size: 5px; letter-spacing: 0.5px; }
+  .logo-bubble--small .logo-text-main { font-size: 14px; }
+  .logo-bubble--small .logo-dot { width: 4px; height: 4px; margin-top: 3px; }
+  .logo-bubble--small .logo-divider { margin: 1px 0; height: 1px; }
+  .logo-bubble--small .logo-text-bottom { font-size: 5px; letter-spacing: 0.5px; }
+  .logo-bubble--small .logo-bubble__tail {
+    bottom: -8px;
+    right: 10px;
+    border-left-width: 6px;
+    border-right-width: 6px;
+    border-top-width: 8px;
+  }
+}
+
 .logo-bubble__inner {
   display: flex;
   flex-direction: column;
