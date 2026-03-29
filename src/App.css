@@ -126,6 +126,18 @@
   max-height: 90vh;
   overflow-y: auto;
 }
+
+/* Su mobile: modal parte dall'alto per non tagliare il titolo */
+@media (max-width: 768px) {
+  .modal-overlay {
+    align-items: flex-start;
+    padding: 16px 12px 32px;
+  }
+  .modal-card {
+    max-height: none;
+    overflow-y: visible;
+  }
+}
 .modal-close {
   position: absolute;
   top: 14px;
