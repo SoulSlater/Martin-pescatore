@@ -12,7 +12,6 @@ const ALLERGENS = [
 ];
 
 export const CATEGORIES = [
-  { id: 'all', label: 'Tutto', emoji: '✨', section: 'all' },
   { id: 'caffetteria', label: 'Caffetteria', emoji: '☕', section: 'bar' },
   { id: 'panini', label: 'Panini', emoji: '🥪', section: 'bar' },
   { id: 'aperitivi', label: 'Aperitivi Alcolici', emoji: '🍹', section: 'bar' },

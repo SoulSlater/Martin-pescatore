@@ -21,22 +21,26 @@ export default function MenuPage() {
     return CATEGORIES.filter(cat => cat.section === section || cat.section === 'all');
   }, [CATEGORIES, section]);
 
-  const [activeCategory, setActiveCategory] = useState('all');
+  const [activeCategory, setActiveCategory] = useState('');
   const [search, setSearch] = useState('');
 
-  // Auto-select first category specific to section instead of "all" if desired,
-  // but "all" is fine too. Let's stick with "all" as default when section changes.
+  // Auto-select first category specific to section instead of "all"
   useEffect(() => {
-    setActiveCategory('all');
+    if (visibleCategories.length > 0) {
+      setActiveCategory(visibleCategories[0].id);
+    }
     setSearch('');
-  }, [section]);
+  }, [section, visibleCategories]);
+
+  // Scroll to top when category changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [activeCategory]);
 
   const filtered = useMemo(() => {
     return items.filter(item => {
-      // First, filter by the active category tab
-      const matchCategory = activeCategory === 'all'
-        ? visibleCategories.some(c => c.id === item.category && c.id !== 'all')
-        : item.category === activeCategory;
+      // Filter by the active category tab
+      const matchCategory = item.category === activeCategory;
 
       const q = search.toLowerCase();
       const matchSearch = !q ||
@@ -45,12 +49,10 @@ export default function MenuPage() {
         (item.ingredients || []).some(i => i.toLowerCase().includes(q));
       return matchCategory && matchSearch;
     });
-  }, [items, activeCategory, search, visibleCategories]);
+  }, [items, activeCategory, search]);
 
   const categoryCount = (catId) =>
-    catId === 'all'
-      ? items.filter(i => visibleCategories.some(c => c.id === i.category && c.id !== 'all')).length
-      : items.filter(i => i.category === catId).length;
+    items.filter(i => i.category === catId).length;
 
   return (
     <div className="menu-page page-container">

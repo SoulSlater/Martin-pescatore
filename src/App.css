@@ -217,30 +217,30 @@
 .logo-bubble {
   position: relative;
   background: var(--accent-primary);
-  padding: 24px 32px;
-  border-radius: 40px;
+  padding: 16px 24px;
+  border-radius: 30px;
   display: inline-flex;
   flex-direction: column;
   align-items: center;
-  box-shadow: 0 8px 0 var(--accent-secondary);
+  box-shadow: 0 6px 0 var(--accent-secondary);
 }
 
 .logo-bubble--small {
-  padding: 12px 20px;
-  border-radius: 24px;
-  box-shadow: 0 4px 0 var(--accent-secondary);
+  padding: 8px 16px;
+  border-radius: 20px;
+  box-shadow: 0 3px 0 var(--accent-secondary);
 }
-.logo-bubble--small .logo-text-top { font-size: 10px; letter-spacing: 1px; }
-.logo-bubble--small .logo-text-main { font-size: 32px; }
-.logo-bubble--small .logo-dot { width: 8px; height: 8px; margin-top: 6px; }
-.logo-bubble--small .logo-divider { margin: 4px 0; }
-.logo-bubble--small .logo-text-bottom { font-size: 9px; letter-spacing: 1px; }
+.logo-bubble--small .logo-text-top { font-size: 8px; letter-spacing: 0.8px; }
+.logo-bubble--small .logo-text-main { font-size: 24px; }
+.logo-bubble--small .logo-dot { width: 6px; height: 6px; margin-top: 4px; }
+.logo-bubble--small .logo-divider { margin: 2px 0; }
+.logo-bubble--small .logo-text-bottom { font-size: 8px; letter-spacing: 0.8px; }
 .logo-bubble--small .logo-bubble__tail {
-  bottom: -15px;
-  right: 20px;
-  border-left-width: 15px;
-  border-right-width: 15px;
-  border-top-width: 20px;
+  bottom: -12px;
+  right: 15px;
+  border-left-width: 12px;
+  border-right-width: 12px;
+  border-top-width: 15px;
 }
 
 .logo-bubble__inner {
@@ -252,21 +252,21 @@
 }
 
 .logo-text-top {
-  font-size: 14px;
+  font-size: 11px;
   font-weight: 700;
-  letter-spacing: 2px;
-  margin-bottom: -5px;
+  letter-spacing: 1.5px;
+  margin-bottom: -3px;
 }
 
 .logo-text-main-wrap {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 
 .logo-text-main {
   font-family: 'Amatic SC', cursive;
-  font-size: 64px;
+  font-size: 48px;
   font-weight: 700;
   line-height: 0.9;
   letter-spacing: 1px;
