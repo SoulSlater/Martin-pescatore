@@ -1,0 +1,9 @@
+- [ ] Update `index.css`: Colors, Fonts, Global resets
+- [ ] Update `MenuPage.jsx`: Speech bubble logo, remove product images from rendering
+- [ ] Update `App.css`: 
+    - [ ] Redesign `.menu-hero` for the logo bubble
+    - [ ] Redesign `.product-card` (no images, price under name)
+    - [ ] Update `.category-tab` styles
+    - [ ] Update `.menu-controls` and `sticky` behavior
+- [ ] Verify light mode accessibility and layout
+- [ ] Update labels and metadata if needed (e.g. Italian translations)
