@@ -6,17 +6,6 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
 import clsx from 'clsx';
 
-const gridVariants = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: { duration: 0.18 },
-  },
-  exit: {
-    opacity: 0,
-    transition: { duration: 0.12 },
-  },
-};
 
 export default function MenuPage() {
   const { items, CATEGORIES } = useMenu();
