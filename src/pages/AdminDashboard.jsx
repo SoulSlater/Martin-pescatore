@@ -1,5 +1,4 @@
 import { useState, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import {
   Plus, Search, Edit2, Trash2, ToggleLeft, ToggleRight,
   LayoutGrid, List, LogOut, ChefHat, TrendingUp, UtensilsCrossed,
@@ -33,18 +32,12 @@ function StatCard({ label, value, icon: Icon, accent }) {
 
 function ConfirmModal({ message, onConfirm, onCancel }) {
   return (
-    <motion.div
+    <div
       className="modal-overlay"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
       onClick={onCancel}
     >
-      <motion.div
+      <div
         className="confirm-card glass"
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.9, opacity: 0 }}
         onClick={e => e.stopPropagation()}
       >
         <div className="confirm-icon"><Trash2 size={24} /></div>
@@ -56,8 +49,8 @@ function ConfirmModal({ message, onConfirm, onCancel }) {
             <Trash2 size={15} /> Elimina
           </button>
         </div>
-      </motion.div>
-    </motion.div>
+      </div>
+    </div>
   );
 }
 
@@ -199,168 +192,137 @@ export default function AdminDashboard() {
         </div>
 
         {/* Items */}
-        <AnimatePresence mode="wait">
-          {viewMode === 'list' ? (
-            <motion.div
-              key="list"
-              className="admin-list"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-            >
-              {filtered.length === 0 && (
-                <div className="admin-empty">
-                  <UtensilsCrossed size={32} />
-                  <p>Nessun piatto trovato</p>
-                </div>
-              )}
-              {filtered.map(item => (
-                <motion.div
-                  key={item.id}
-                  className="admin-list-row glass"
-                  layout
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: 20 }}
-                  id={`admin-row-${item.id}`}
-                >
-                  <img src={item.image} alt={item.name} className="admin-row-img" />
-                  <div className="admin-row-info">
-                    <div className="admin-row-name">
-                      {item.name}
-                      {!item.available && (
-                        <span className="badge badge-danger" style={{ marginLeft: 8 }}>Non disp.</span>
-                      )}
-                    </div>
-                    <div className="admin-row-meta">
-                      <span className="badge badge-accent">{getCategoryLabel(item.category)}</span>
-                      {item.allergens.slice(0, 4).map(a => (
-                        <span key={a} title={a} style={{ fontSize: 16 }}>{ALLERGEN_ICONS[a]}</span>
-                      ))}
-                    </div>
+        {viewMode === 'list' ? (
+          <div className="admin-list">
+            {filtered.length === 0 && (
+              <div className="admin-empty">
+                <UtensilsCrossed size={32} />
+                <p>Nessun piatto trovato</p>
+              </div>
+            )}
+            {filtered.map(item => (
+              <div
+                key={item.id}
+                className="admin-list-row glass"
+                id={`admin-row-${item.id}`}
+              >
+                <img src={item.image} alt={item.name} className="admin-row-img" />
+                <div className="admin-row-info">
+                  <div className="admin-row-name">
+                    {item.name}
+                    {!item.available && (
+                      <span className="badge badge-danger" style={{ marginLeft: 8 }}>Non disp.</span>
+                    )}
                   </div>
-                  <div className="admin-row-price">€{item.price.toFixed(2)}</div>
-                  <div className="admin-row-actions">
-                    <button
-                      className={clsx('btn btn-icon', item.available ? 'btn-ghost' : 'btn-primary btn-sm')}
-                      onClick={() => toggleAvailability(item.id)}
-                      title={item.available ? 'Rendi non disponibile' : 'Rendi disponibile'}
-                    >
+                  <div className="admin-row-meta">
+                    <span className="badge badge-accent">{getCategoryLabel(item.category)}</span>
+                    {item.allergens.slice(0, 4).map(a => (
+                      <span key={a} title={a} style={{ fontSize: 16 }}>{ALLERGEN_ICONS[a]}</span>
+                    ))}
+                  </div>
+                </div>
+                <div className="admin-row-price">€{item.price.toFixed(2)}</div>
+                <div className="admin-row-actions">
+                  <button
+                    className={clsx('btn btn-icon', item.available ? 'btn-ghost' : 'btn-primary btn-sm')}
+                    onClick={() => toggleAvailability(item.id)}
+                    title={item.available ? 'Rendi non disponibile' : 'Rendi disponibile'}
+                  >
+                    {item.available
+                      ? <ToggleRight size={18} style={{ color: 'var(--success)' }} />
+                      : <ToggleLeft size={18} />}
+                  </button>
+                  <button
+                    className="btn btn-ghost btn-icon"
+                    onClick={() => setFormMode({ edit: item })}
+                    title="Modifica"
+                    id={`edit-btn-${item.id}`}
+                  >
+                    <Edit2 size={16} />
+                  </button>
+                  <button
+                    className="btn btn-danger btn-icon"
+                    onClick={() => handleDelete(item)}
+                    title="Elimina"
+                    id={`delete-btn-${item.id}`}
+                  >
+                    <Trash2 size={16} />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="admin-grid">
+            {filtered.map(item => (
+              <div
+                key={item.id}
+                className="admin-grid-card glass"
+              >
+                <img src={item.image} alt={item.name} className="admin-grid-img" />
+                <div className="admin-grid-body">
+                  <h3 className="admin-grid-name">{item.name}</h3>
+                  <span className="badge badge-accent">{getCategoryLabel(item.category)}</span>
+                  <div className="admin-grid-price">€{item.price.toFixed(2)}</div>
+                  <div className="admin-row-actions" style={{ marginTop: 'auto' }}>
+                    <button className="btn btn-ghost btn-icon"
+                      onClick={() => toggleAvailability(item.id)}>
                       {item.available
                         ? <ToggleRight size={18} style={{ color: 'var(--success)' }} />
                         : <ToggleLeft size={18} />}
                     </button>
-                    <button
-                      className="btn btn-ghost btn-icon"
-                      onClick={() => setFormMode({ edit: item })}
-                      title="Modifica"
-                      id={`edit-btn-${item.id}`}
-                    >
+                    <button className="btn btn-ghost btn-icon"
+                      onClick={() => setFormMode({ edit: item })}>
                       <Edit2 size={16} />
                     </button>
-                    <button
-                      className="btn btn-danger btn-icon"
-                      onClick={() => handleDelete(item)}
-                      title="Elimina"
-                      id={`delete-btn-${item.id}`}
-                    >
+                    <button className="btn btn-danger btn-icon"
+                      onClick={() => handleDelete(item)}>
                       <Trash2 size={16} />
                     </button>
                   </div>
-                </motion.div>
-              ))}
-            </motion.div>
-          ) : (
-            <motion.div
-              key="grid"
-              className="admin-grid"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-            >
-              {filtered.map(item => (
-                <motion.div
-                  key={item.id}
-                  className="admin-grid-card glass"
-                  layout
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                >
-                  <img src={item.image} alt={item.name} className="admin-grid-img" />
-                  <div className="admin-grid-body">
-                    <h3 className="admin-grid-name">{item.name}</h3>
-                    <span className="badge badge-accent">{getCategoryLabel(item.category)}</span>
-                    <div className="admin-grid-price">€{item.price.toFixed(2)}</div>
-                    <div className="admin-row-actions" style={{ marginTop: 'auto' }}>
-                      <button className="btn btn-ghost btn-icon"
-                        onClick={() => toggleAvailability(item.id)}>
-                        {item.available
-                          ? <ToggleRight size={18} style={{ color: 'var(--success)' }} />
-                          : <ToggleLeft size={18} />}
-                      </button>
-                      <button className="btn btn-ghost btn-icon"
-                        onClick={() => setFormMode({ edit: item })}>
-                        <Edit2 size={16} />
-                      </button>
-                      <button className="btn btn-danger btn-icon"
-                        onClick={() => handleDelete(item)}>
-                        <Trash2 size={16} />
-                      </button>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
-          )}
-        </AnimatePresence>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </main>
 
       {/* Form Modal */}
-      <AnimatePresence>
-        {formMode && (
-          <motion.div
-            className="modal-overlay"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+      {formMode && (
+        <div
+          className="modal-overlay"
+        >
+          <div
+            className="form-modal glass"
+            onClick={e => e.stopPropagation()}
           >
-            <motion.div
-              className="form-modal glass"
-              initial={{ opacity: 0, y: 60 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 60 }}
-              onClick={e => e.stopPropagation()}
-            >
-              <div className="form-modal__header">
-                <h2 className="form-modal__title">
-                  {formMode === 'add' ? '✨ Nuovo Piatto' : `✏️ Modifica: ${formMode.edit.name}`}
-                </h2>
-                <button className="btn btn-ghost btn-icon" onClick={() => setFormMode(null)}>
-                  <X size={18} />
-                </button>
-              </div>
-              <div className="form-modal__body">
-                <ProductForm
-                  initialData={formMode === 'add' ? null : formMode.edit}
-                  onClose={() => setFormMode(null)}
-                  onSave={handleSave}
-                />
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            <div className="form-modal__header">
+              <h2 className="form-modal__title">
+                {formMode === 'add' ? '✨ Nuovo Piatto' : `✏️ Modifica: ${formMode.edit.name}`}
+              </h2>
+              <button className="btn btn-ghost btn-icon" onClick={() => setFormMode(null)}>
+                <X size={18} />
+              </button>
+            </div>
+            <div className="form-modal__body">
+              <ProductForm
+                initialData={formMode === 'add' ? null : formMode.edit}
+                onClose={() => setFormMode(null)}
+                onSave={handleSave}
+              />
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Confirm Delete Modal */}
-      <AnimatePresence>
-        {deleteTarget && (
-          <ConfirmModal
-            message={`Sei sicuro di voler eliminare "${deleteTarget.name}" dal menu? L'azione non è reversibile.`}
-            onConfirm={confirmDelete}
-            onCancel={() => setDeleteTarget(null)}
-          />
-        )}
-      </AnimatePresence>
+      {deleteTarget && (
+        <ConfirmModal
+          message={`Sei sicuro di voler eliminare "${deleteTarget.name}" dal menu? L'azione non è reversibile.`}
+          onConfirm={confirmDelete}
+          onCancel={() => setDeleteTarget(null)}
+        />
+      )}
     </div>
   );
 }

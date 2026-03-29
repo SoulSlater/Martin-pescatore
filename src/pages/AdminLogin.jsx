@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
 import { Lock, Eye, EyeOff, ChefHat, ArrowRight } from 'lucide-react';
 import { useMenu } from '../context/MenuContext';
 import { useNavigate } from 'react-router-dom';
@@ -32,12 +31,7 @@ export default function AdminLogin() {
       <div className="page-bg-orb orb-blue" />
 
       <div className="login-wrapper">
-        <motion.div
-          className="login-card glass"
-          initial={{ opacity: 0, y: 40, scale: 0.97 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 0.5, type: 'spring', stiffness: 200, damping: 20 }}
-        >
+        <div className="login-card glass">
           {/* Logo */}
           <div className="login-logo">
             <div className="login-logo__icon">
@@ -76,13 +70,9 @@ export default function AdminLogin() {
             </div>
 
             {error && (
-              <motion.p
-                className="login-error"
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-              >
+              <p className="login-error">
                 {error}
-              </motion.p>
+              </p>
             )}
 
             <button
@@ -103,16 +93,11 @@ export default function AdminLogin() {
             <Lock size={12} />
             <span>Password demo: <code>admin123</code></span>
           </div>
-        </motion.div>
+        </div>
 
-        <motion.p
-          className="login-back"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.4 }}
-        >
+        <p className="login-back">
           <a href="/" className="login-back__link">← Torna al Menu Clienti</a>
-        </motion.p>
+        </p>
       </div>
     </div>
   );
